@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.4"
+    "react-native": "0.59.4",
+    "react-native-elements": "^1.1.0",
+    "react-native-vector-icons": "^6.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
@@ -20,6 +22,7 @@
     "metro-react-native-babel-preset": "^0.53.1",
     "react-native-typescript-transformer": "^1.2.12",
     "react-test-renderer": "16.8.3",
+    "rnpm-plugin-windows": "^0.2.9",
     "typescript": "^3.4.3"
   },
   "jest": {
