@@ -1,4 +1,4 @@
-#Wed Apr 17 20:03:01 BRT 2019
+#Thu May 16 23:24:20 BRT 2019
 base.0=C\:\\TrucoMarcator\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
 path.0=classes.dex
