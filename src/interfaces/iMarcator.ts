@@ -7,7 +7,8 @@ export default interface iMarcator{
     visibleA    :boolean,
     visibleB    :boolean,
     nameA       :string,
-    nameB       :string
+    nameB       :string,
+    ariba       :boolean
 }
 
 export interface iVitoria{

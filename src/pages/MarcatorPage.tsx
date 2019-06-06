@@ -1,8 +1,7 @@
 import React from 'react';
-import {Overlay} from 'react-native-elements'
+import {Overlay, Image} from 'react-native-elements'
 import iMarcator from '../interfaces/iMarcator'
-
-import { StyleSheet, Text, View, KeyboardAvoidingView, Button, ImageBackground, TouchableOpacity, RefreshControl, ScrollView, Modal, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, Button, ImageBackground, TouchableOpacity, RefreshControl, ScrollView, Modal, Alert, TextInput, ActivityIndicator } from 'react-native';
 import VitoriaPanel from '../components/VitoriaPanel';
 
 export interface Props extends iMarcator{}
@@ -22,7 +21,8 @@ export default class MarcatorPage extends React.Component<Props, State>{
       visibleA    :false,
       visibleB    :false,
       nameA       :"Nós",
-      nameB       :"Eles"
+      nameB       :"Eles",
+      ariba       : false
     }
     
   }
@@ -31,7 +31,23 @@ export default class MarcatorPage extends React.Component<Props, State>{
     return(
         <View style={{flex:1}}>
             
-          <Overlay 
+            <Overlay 
+            isVisible={this.state.ariba}
+            windowBackgroundColor="rgba(255, 255, 255, .5)"
+            overlayBackgroundColor="#FFF"
+            width="auto"
+            height="auto"
+            onBackdropPress={()=>this.setState({ariba:false})}
+            >
+            <Image
+              source={{uri:'https://scontent.ftow1-1.fna.fbcdn.net/v/t1.0-9/37912124_2167983593487399_1904873160335949824_n.jpg?_nc_cat=102&_nc_eui2=AeH2_NXN7-dMzRaAGudz7vrbupwQQeSsaLTEKV2xbmG0BDsz7cTz__1t5Q3HljmHH-RvZ4UmnG6MfkNpIwj-uZ2hXdfbYtCoaiiTPXn6a42xjg&_nc_oc=AQmN3EIb46u89zMABdfHxbHADSWTDRRD_I_tk-kFHUrboK4SM2iecF23SwEiKnOBuxg&_nc_ht=scontent.ftow1-1.fna&oh=e550b22b0b9ea86c61821f884eaff48f&oe=5D9FB9C2'}}
+              style={{ width: 300, height: 300 }}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+    
+          </Overlay>
+
+            <Overlay 
             isVisible={this.state.visibleA}
             windowBackgroundColor="rgba(255, 255, 255, .5)"
             overlayBackgroundColor="#FFF"
@@ -123,7 +139,13 @@ export default class MarcatorPage extends React.Component<Props, State>{
                             ? this.setState({'pontoA':this.state.pontoA+1})
                             : this.setState({'pontoA':this.state.pontoA+this.state.truco});
                         
-                        this.state.pontoA >=12? (this.setState({"vitoriaA":this.state.vitoriaA+1}), this.setState({'pontoB':0}), this.setState({'pontoA':0})):""
+                        this.state.pontoA >=12? (
+                          this.setState({"vitoriaA":this.state.vitoriaA+1}),
+                          this.setState({'pontoB':0}),
+                          this.setState({'pontoA':0}),
+                          this.setState({ariba:true}),
+                          setTimeout(()=>this.setState({ariba:false}),500))
+                          :""
                         
                         this.setState({"truco":0})}
                  }>
@@ -137,7 +159,12 @@ export default class MarcatorPage extends React.Component<Props, State>{
                             ? this.setState({'pontoB':this.state.pontoB+1})
                             : this.setState({'pontoB':this.state.pontoB+this.state.truco});
                         
-                        this.state.pontoB >=12? (this.setState({"vitoriaB":this.state.vitoriaB+1}), this.setState({'pontoA':0}), this.setState({'pontoB':0})):""
+                        this.state.pontoB >=12? (
+                          this.setState({"vitoriaB":this.state.vitoriaB+1}),
+                          this.setState({'pontoA':0}), this.setState({'pontoB':0}),
+                          this.setState({ariba:true}),
+                          setTimeout(()=>this.setState({ariba:false}),500))
+                          :""
                         
                         this.setState({"truco":0})}
                   }>
