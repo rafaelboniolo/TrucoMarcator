@@ -1,47 +1,36 @@
 import React from 'react';
-import { Component } from 'react';
 import {Overlay} from 'react-native-elements'
+import iMarcator from '../interfaces/iMarcator'
 
 import { StyleSheet, Text, View, KeyboardAvoidingView, Button, ImageBackground, TouchableOpacity, RefreshControl, ScrollView, Modal, Alert, TextInput } from 'react-native';
+import VitoriaPanel from '../components/VitoriaPanel';
 
-export interface Props{
-  pontoA:number,
-  pontoB:number,
-  truco:number,
-  vitoriaA:number,
-  vitoriaB:number,
-  visibleA:boolean,
-  visibleB:boolean,
-  nameA:string,
-  nameB:string
-}
+export interface Props extends iMarcator{}
+interface State extends iMarcator{}
 
-interface State extends Props{}
-
-export default class App extends React.Component<Props, State>{
+export default class MarcatorPage extends React.Component<Props, State>{
 
   constructor(props:Props){
     super(props);
 
     this.state = {
-      pontoA:0,
-      pontoB:0,
-      truco: 0,
-      vitoriaA:0,
-      vitoriaB:0,
-      visibleA:false,
-      visibleB:false,
-      nameA:"Nós",
-      nameB:"Eles"
+      pontoA      :0,
+      pontoB      :0,
+      truco       :0,
+      vitoriaA    :0,
+      vitoriaB    :0,
+      visibleA    :false,
+      visibleB    :false,
+      nameA       :"Nós",
+      nameB       :"Eles"
     }
     
   }
 
   render(){
     return(
-       <ImageBackground style={{flex:1}} source={{uri:"https://img.freepik.com/vetores-gratis/projeto-de-fundo-escuro-abstrato-de-meio-tom_1017-15505.jpg?size=338&ext=jpg"}}>  
-          
-          
+        <View style={{flex:1}}>
+            
           <Overlay 
             isVisible={this.state.visibleA}
             windowBackgroundColor="rgba(255, 255, 255, .5)"
@@ -49,6 +38,7 @@ export default class App extends React.Component<Props, State>{
             width="auto"
             height="auto"
             onBackdropPress={() => this.setState({ visibleA: false })}>
+            
             <View>
               <Text>{this.state.nameA}</Text>
               <TextInput autoFocus onChangeText={
@@ -57,6 +47,7 @@ export default class App extends React.Component<Props, State>{
                   this.setState({"nameA":x.substr(0,10).concat('..')}) 
                   }/>
             </View>
+            
           </Overlay>
 
           <Overlay 
@@ -83,7 +74,7 @@ export default class App extends React.Component<Props, State>{
           
           <View style = {{flex:1.6, justifyContent:"center"}}>
             <View style={styles.box}>
-              <View><Text  style={styles.nome} onLongPress = {()=>{this.setState({'visibleA':true})}}>{this.state.nameA}</Text></View>
+              <View><Text style={styles.nome} onLongPress = {()=>{this.setState({'visibleA':true})}}>{this.state.nameA}</Text></View>
               <View><Text style={styles.nome} onLongPress = {()=>{this.setState({'visibleB':true})}}>{this.state.nameB}</Text></View>
             </View>
               
@@ -118,7 +109,7 @@ export default class App extends React.Component<Props, State>{
                 </View>
             </View>  
 
-            <View style={styles.box}>
+          <View style={styles.box}>
               <View><Text style={{fontSize:50, color:"white"}}>{this.state.pontoA}</Text></View>
               <View><Text style={{fontSize:50, color:"white"}}>{this.state.pontoB}</Text></View>
             </View>
@@ -169,16 +160,9 @@ export default class App extends React.Component<Props, State>{
               </View>
             </View>
 
-            <View style = {{flex:1}}>
-              <View style={{alignItems:"center"}}>
-                <Text style={{fontSize:25, color:"white"}}>Vitórias</Text>
-              </View>
-              <View style = {styles.box}>
-                <View><Text style={styles.nome}>{this.state.vitoriaA}</Text></View>
-                <View><Text style={styles.nome}>{this.state.vitoriaB}</Text></View>
-              </View>
-            </View>
-      </ImageBackground>
+            <VitoriaPanel vitoriaA={this.state.vitoriaA} vitoriaB={this.state.vitoriaB} />
+            
+        </View>
     );
   }
 }
